@@ -1,25 +1,16 @@
-const express = require("express");
-const cors = require("cors");
-var path = require("path");
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-const connectToMongo = require("./db.js");
-connectToMongo();
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
 
-const app = express();
-const port = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/notes", require("./routes/notes"));
-
-if (process.env.NODE_ENV == "production") {
-  app.use(express.static("inotebook/build"));
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "./inotebook/build/index.html"));
-  });
-}
-
-app.listen(port, () => {
-  console.log(`iNotebook backend listening at http://localhost:${port}`);
-});
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
